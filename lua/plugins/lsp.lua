@@ -158,6 +158,7 @@ return {
                     "--background-index",
                     "--clang-tidy",
                     "--header-insertion=iwyu",
+                    "--suggest-missing-includes",
                     "--completion-style=detailed",
                     "--function-arg-placeholders",
                     "--fallback-style=llvm",
@@ -190,9 +191,20 @@ return {
                 "rust_analyzer",
                 "sourcekit",
             })
-
+            vim.diagnostic.config({
+                float = {
+                    border = 'rounded',
+                }
+            })
             -- lsp kepmap setting
-            vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+            vim.keymap.set("n", "K", function ()
+                vim.lsp.buf.hover({
+                    border = 'rounded',
+                    title = " Docs ",
+                    max_width = 80,
+                    max_height = 20,
+                })
+            end, {})
             vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
             vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
